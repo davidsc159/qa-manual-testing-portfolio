@@ -10,173 +10,161 @@
 
 ---
 
-## 📌 1. Resumen Ejecutivo del Proyecto
+## 📌 1. ¿De qué trata este proyecto? (Resumen en 30 segundos)
 
-Este repositorio constituye un **proyecto integral de Aseguramiento de Calidad (QA)** diseñado para demostrar el criterio analítico, diseño estructurado de pruebas y validación profunda de base de datos de un **QA Analyst / Practicante QA**.
+Este repositorio es una muestra práctica del trabajo de un **QA Analyst / Practicante QA** en un entorno profesional.
 
-El sistema bajo prueba corresponde al flujo crítico de compra de una plataforma de comercio electrónico (**SauceDemo Web Store**), abarcando desde la autenticación del cliente hasta la confirmación de la orden y la consistencia en el backend relacional.
+En lugar de hacer clics al azar, se realizó una **auditoría completa de calidad** sobre el flujo de compra de una tienda online de prueba ([SauceDemo Web Store](https://www.saucedemo.com/)), cubriendo desde el inicio de sesión del cliente hasta la verificación de los cobros y el stock en la **base de datos (SQL)**.
+
+> **Objetivo clave:** Demostrar que un buen QA no solo valida que los botones funcionen en la pantalla, sino que protege al negocio de perder dinero, generar cobros erróneos o vender productos agotados.
 
 ---
 
-## 💡 2. ¿Cómo se hizo este proyecto? (Metodología paso a paso explicada fácil)
+## 💡 2. ¿Cómo se hizo el proyecto? (Metodología paso a paso)
 
-Si quieres entender cómo se construyó este proyecto de inicio a fin, aquí está la secuencia real de trabajo que sigue un QA:
+El proyecto simula el ciclo de vida real de pruebas dentro de un equipo de desarrollo ágil:
 
 ```mermaid
 flowchart LR
-    A["1. PLANIFICAR<br>(Qué probar y qué no)"] --> B["2. DISEÑAR<br>(20 casos: caminos felices y errores)"]
-    B --> C["3. EJECUTAR<br>(Probar en SauceDemo)"]
-    C --> D["4. REPORTAR<br>(3 Bugs en Jira)"]
-    D --> E["5. AUDITAR CON SQL<br>(Verificar números en BD)"]
+    A["1. PLANIFICAR<br>Definir alcance y riesgos"] --> B["2. DISEÑAR<br>20 casos (éxito y errores)"]
+    B --> C["3. EJECUTAR<br>Pruebas en la tienda web"]
+    C --> D["4. REPORTAR<br>3 Bugs en formato Jira"]
+    D --> E["5. AUDITAR CON SQL<br>Validar integridad en BD"]
 ```
 
-1. **Planificar antes de probar (El Plan de Pruebas):** En lugar de hacer clics a ciegas, primero se delimitó el alcance: qué partes de la tienda se revisarían (Login, Carrito, Checkout) y qué quedaría fuera (pasarelas de pago reales).
-2. **Pensar como un usuario real (La Matriz de Casos de Prueba):** Se redactaron 20 escenarios detallados. No solo el "camino feliz" (cuando todo sale bien), sino escenarios donde el usuario se equivoca: escribir espacios accidentales en formularios, intentar comprar con carrito vacío o recargar la pantalla con F5.
-3. **Reportar fallas con impacto de negocio (Bug Reports en Jira):** Al encontrar 3 defectos reales, se documentaron bajo el estándar de la industria indicando severidad, prioridad, pasos exactos para reproducirlos y evidencias de red.
-4. **No conformarse con la pantalla (Auditoría con SQL):** En una tienda real, la pantalla puede mostrar un check verde de compra, pero la base de datos puede estar guardando un cobro con sobreprecio o vendiendo productos con stock agotado. Se crearon 7 consultas SQL para auditar que la base de datos sea 100% íntegra.
+1. **Planificar antes de probar ([Test Plan](docs/01_test_plan_ecommerce.md)):** Se definió qué módulos probar (Login, Inventario, Carrito y Checkout) y cuáles dejar fuera (pagos reales con tarjetas), además de los criterios para dar por aprobada la versión.
+2. **Pensar como un usuario real ([Matriz de 20 Casos](docs/02_test_cases_matrix.md)):** Se diseñaron escenarios positivos (el cliente compra normalmente) y escenarios negativos (el cliente escribe espacios por error, deja campos vacíos o recarga la página).
+3. **Reportar fallas con impacto de negocio ([Jira Bug Reports](docs/03_bug_reports_jira.md)):** Se documentaron 3 defectos encontrados explicando cómo reproducirlos paso a paso, su nivel de gravedad y cómo solucionarlos.
+4. **Verificar los números por detrás ([Auditoría SQL](sql/02_qa_validation_queries.sql)):** Se consultó la base de datos para confirmar que las órdenes registradas no tuvieran descuadres de dinero, clientes duplicados ni compras de productos fantasmas.
 
 ---
 
-## 📊 3. Métricas Generales de Calidad
+## 📊 3. Resultados Generales de las Pruebas
 
-| Métrica | Valor | Detalle |
+| Métrica | Resultado | Descripción |
 | :--- | :---: | :--- |
-| **Total de Casos de Prueba Diseñados** | **20** | Tabulados en Markdown y descargables en `.csv` para Jira/Excel |
-| **Casos Aprobados (PASS)** | **17 (85%)** | Flujos funcionales exitosos y validaciones de borde esperadas |
-| **Defectos Detectados (FAIL)** | **3 (15%)** | Documentados en Bug Reports formales (`BUG-001`, `BUG-002`, `BUG-003`) |
-| **Consultas SQL de Auditoría** | **7** | Scripts ejecutables con 100% de cobertura en reglas de negocio |
-| **Bugs Críticos / Bloqueantes** | **1** | Condición de carrera en stock con sobreventa negativa (`BUG-003`) |
+| **Casos de Prueba Totales** | **20** | Documentados en Markdown y descargables en `.csv` para Jira/Excel |
+| **Casos Aprobados (PASS)** | **17 (85%)** | Flujos normales y mensajes de error esperados funcionando bien |
+| **Defectos Detectados (FAIL)** | **3 (15%)** | Reportados con severidad, prioridad y evidencia técnica |
+| **Consultas SQL de Auditoría** | **7** | Scripts que validan que la base de datos no tenga datos corruptos |
+| **Defectos Críticos (Blockers)** | **1** | Condición de carrera que permitía vender sin stock (`BUG-003`) |
 
 ```mermaid
-pie title Distribución de Resultados de Casos de Prueba
-    "Aprobados (PASS)" : 17
-    "Fallidos con Bug (FAIL)" : 3
+pie title Estado de los Casos de Prueba
+    "Casos Aprobados (PASS)" : 17
+    "Bugs Detectados (FAIL)" : 3
 ```
 
 ---
 
-## 📁 3. Estructura del Repositorio
+## 🐛 4. Los 3 Defectos Encontrados (Bug Reports)
+
+Durante las pruebas se detectaron 3 fallas reales, documentadas bajo el estándar de **Jira**:
+
+| ID | Severidad | Módulo | El Problema en Lenguaje Simple | Impacto en el Negocio |
+| :---: | :---: | :--- | :--- | :--- |
+| **[BUG-001](docs/03_bug_reports_jira.md#bug-report-1-bug-001)** | Minor (P3) | Carrito | La página permite dar clic en *"Checkout"* y avanzar aunque el carrito tenga 0 productos. | Confusión en la experiencia de usuario (UX) al solicitar dirección para una compra de $0.00. |
+| **[BUG-002](docs/03_bug_reports_jira.md#bug-report-2-bug-002)** | Major (P2) | Checkout | Si el cliente copia y pega su código postal con un espacio al final (`" 15036 "`), el sistema arroja error en vez de limpiarlo automáticamente con `.trim()`. | Pérdida de ventas: usuarios móviles abandonan la compra al recibir un error confuso. |
+| **[BUG-003](docs/03_bug_reports_jira.md#bug-report-3-bug-003-blocker)** | **Critical (P1)** | Inventario / BD | **Condición de carrera:** Si dos usuarios compran la última unidad al mismo tiempo, el sistema deja comprar a ambos y deja el stock en `-1`. | **Bloqueante para producción:** Sobreventa de productos que no existen en almacén y reclamos de clientes. |
+
+---
+
+## 🗄️ 5. ¿Por qué usamos SQL en este proyecto? (SQL Data Quality)
+
+Muchos evaluadores de QA notan que los postulantes solo revisan lo visual. En este proyecto se demostró cómo auditar el backend mediante **7 consultas SQL**:
+
+| Consulta | ¿Qué problema real busca en la Base de Datos? | Resultado de la Auditoría |
+| :---: | :--- | :---: |
+| **VAL-01** | **Usuarios Duplicados:** Busca cuentas registradas con el mismo correo electrónico (`HAVING COUNT(*) > 1`). | ⚠️ Detectado (2 usuarios con mismo email) |
+| **VAL-02** | **Productos Fantasmas (Huérfanos):** Compras de ítems cuyo código de producto no existe en el catálogo (`LEFT JOIN WHERE p.id IS NULL`). | ⚠️ Detectado (Ítem con producto inexistente 999) |
+| **VAL-03** | **Descuadre de Dinero:** Comprueba si el total de la orden coincide exactamente con la suma de sus productos (`SUM(precio * cantidad)`). | ⚠️ Detectado (Orden cobró $75.00 en vez de $45.98) |
+| **VAL-04** | **Reglas de Entrega Incompletas:** Órdenes con estado 'DELIVERED' que no tienen fecha de entrega registrada. | ⚠️ Detectado (Orden 1002 sin fecha de entrega) |
+| **VAL-05** | **Precios Inválidos y Stock Negativo:** Verifica que ningún producto tenga precio $\le 0$ o stock menor a cero (evidencia del `BUG-003`). | ⚠️ Detectado (Casaca con stock -1 por sobreventa) |
+| **VAL-06** | **Pedidos sin Dueño:** Detecta órdenes generadas en la base de datos sin ningún cliente asignado (`user_id IS NULL`). | ⚠️ Detectado (Orden huérfana 1005) |
+| **VAL-07** | **Trazabilidad 360°:** Consulta con múltiples `JOIN` que cruza usuarios, pedidos, productos y categorías para reportes ejecutivos. | ✅ Verificado (Trazabilidad completa) |
+
+---
+
+## 📁 6. Estructura del Repositorio
 
 ```text
 qa-manual-testing-portfolio/
 │
 ├── .github/
 │   └── workflows/
-│       └── sql-validation-ci.yml    # CI/CD: Automatización de pruebas SQL en cada push
+│       └── sql-validation-ci.yml    # Pipeline en GitHub Actions que corre los tests en cada push
 │
 ├── docs/
-│   ├── 01_test_plan_ecommerce.md    # Plan de Pruebas formal (Alcance, estrategia y riesgos)
-│   ├── 02_test_cases_matrix.md      # Matriz de 20 casos de prueba en formato tabla
-│   ├── 02_test_cases_matrix.csv     # Matriz descargable lista para importar en Excel o Jira
-│   └── 03_bug_reports_jira.md       # 3 Bug Reports detallados con estándar Jira profesional
+│   ├── 01_test_plan_ecommerce.md    # Plan de Pruebas completo (Alcance, estrategia y criterios)
+│   ├── 02_test_cases_matrix.md      # Matriz de 20 casos de prueba tabulados
+│   ├── 02_test_cases_matrix.csv     # Matriz descargable en CSV para Excel o Jira
+│   └── 03_bug_reports_jira.md       # 3 Bug Reports detallados en formato Jira
 │
 ├── sql/
-│   ├── 01_schema_and_mock_data.sql  # Esquema relacional y datos mock con anomalías de prueba
-│   ├── 02_qa_validation_queries.sql # Consultas comentadas de auditoría e integridad de datos
-│   └── run_validations.py           # Script ejecutor en Python (valida en SQLite en memoria)
+│   ├── 01_schema_and_mock_data.sql  # Creación de tablas y datos con fallas controladas
+│   ├── 02_qa_validation_queries.sql # Las 7 consultas SQL de auditoría comentadas
+│   └── run_validations.py           # Script en Python que ejecuta la auditoría en SQLite
 │
 ├── tests/
-│   └── test_database_integrity.py   # Suite de tests unitarios (unittest) para la base de datos
+│   └── test_database_integrity.py   # Suite de tests unitarios automáticos (unittest)
 │
 ├── .gitignore
 ├── LICENSE
-└── README.md                        # Documentación principal del proyecto
+└── README.md                        # Esta documentación principal
 ```
 
 ---
 
-## 📑 4. Documentación y Artefactos de QA
+## 🚀 7. Cómo Probar el Proyecto en tu Computadora (En 1 minuto)
 
-### 1. [Plan de Pruebas (Test Plan)](docs/01_test_plan_ecommerce.md)
-Define la estrategia holística del proyecto:
-- **Alcance:** Módulos de Autenticación, Catálogo, Carrito de Compras, Checkout y Base de Datos.
-- **Criterios de Entrada:** Disponibilidad de ambiente Staging y dataset base.
-- **Criterios de Salida:** 0 bugs bloqueantes abiertos y ≥90% de aprobación en casos de prueba.
-- **Matriz de Riesgos:** Mitigación de pérdida de transacciones y condiciones de carrera de inventario.
+No necesitas instalar motores de bases de datos pesados; el proyecto corre con **Python** y **SQLite en memoria** que ya vienen incluidos en cualquier sistema.
 
-### 2. [Matriz de Casos de Prueba](docs/02_test_cases_matrix.md) *(Descarga: [CSV](docs/02_test_cases_matrix.csv))*
-20 casos con ID único, precondiciones, pasos numerados, datos de entrada y resultado obtenido:
-- **Autenticación (`TC-AUTH-001` a `TC-AUTH-006`):** Credenciales válidas, usuarios bloqueados (`locked_out_user`), campos vacíos, timeout y seguridad de URLs protegidas.
-- **Catálogo y Carrito (`TC-CART-007` a `TC-CART-013`):** Filtros por precio, adición múltiple, actualización de badge y restricción de checkout con carrito vacío.
-- **Checkout (`TC-CHK-014` a `TC-CHK-020`):** Formularios con espacios en blanco, cálculo de subtotales + impuestos (tax) y concurrencia ante stock 0.
+```bash
+# 1. Clonar el repositorio
+git clone https://github.com/davidsc159/qa-manual-testing-portfolio.git
+cd qa-manual-testing-portfolio
 
-### 3. [Reportes de Defectos (Jira Bug Reports)](docs/03_bug_reports_jira.md)
-Documentación formal de los 3 fallos encontrados:
-- **`BUG-001` (Minor - P3):** Botón Checkout permite navegar teniendo 0 ítems en el carrito.
-- **`BUG-002` (Major - P2):** Formulario de envío no realiza `.trim()` a códigos postales con espacios.
-- **`BUG-003` (Critical / Blocker - P1):** Condición de carrera que permite finalizar compra de producto con stock 0 generando balance negativo en base de datos.
+# 2. Ejecutar la auditoría SQL y ver los reportes en consola
+python sql/run_validations.py
 
----
+# 3. Ejecutar la suite de pruebas unitarias automáticas
+python -m unittest tests/test_database_integrity.py
+```
 
-## 🗄️ 5. Auditoría de Base de Datos con SQL (SQL Testing)
-
-En el rol de QA, verificar que la interfaz muestre los datos correctos es solo la mitad del trabajo; la otra mitad es **garantizar que la base de datos mantenga su integridad**:
-
-| ID | Tipo de Validación | Regla de Negocio Evaluada | Estado |
-| :---: | :--- | :--- | :---: |
-| **VAL-01** | Unicidad de Cuentas | Ningún correo electrónico debe repetirse en la tabla `users`. | ✅ Detectado |
-| **VAL-02** | Integridad Referencial | `order_items` no puede contener productos que no existan en `products` (`LEFT JOIN`). | ✅ Detectado |
-| **VAL-03** | Consistencia Financiera | El `total_amount` de `orders` debe cuadrar con la suma de `(quantity * unit_price)`. | ✅ Detectado |
-| **VAL-04** | Regla de Estados | Órdenes con estado `'DELIVERED'` deben tener obligatoriamente fecha `delivered_at`. | ✅ Detectado |
-| **VAL-05** | Restricción de Dominio | Detección de productos con `stock < 0` o `price <= 0` (evidencia técnica de `BUG-003`). | ✅ Detectado |
-| **VAL-06** | Órdenes Huérfanas | Detección de pedidos generados sin cliente asociado (`user_id IS NULL`). | ✅ Detectado |
-| **VAL-07** | Cruce Multi-Tabla | Trazabilidad completa cruzando usuarios, pedidos, productos y categorías con `JOIN`. | ✅ Verificado |
+*Salida esperada:*
+```text
+================================================================================
+  QA DATABASE INTEGRITY AUDIT REPORT (SQLite Engine)
+================================================================================
+[VAL-01] Validación de Unicidad:             ✓ DETECTADO (1 caso)
+[VAL-02] Integridad Referencial (Huérfanos): ✓ DETECTADO (1 caso)
+[VAL-03] Consistencia Financiera (Descuadre):✓ DETECTADO (Orden 1003)
+[VAL-04] Reglas de Negocio en Estados:       ✓ DETECTADO (Orden 1002)
+[VAL-05] Restricción de Dominio (BUG-003):   ✓ DETECTADO (Stock -1)
+...
+  RESULTADO: 100% de las validaciones SQL se ejecutaron con éxito.
+================================================================================
+```
 
 ---
 
-## 🚀 6. Cómo Ejecutar y Probar el Proyecto Localmente
+## 🎙️ 8. Guía Rápida para la Entrevista Técnica
 
-El proyecto incluye un entorno reproducible que **no requiere instalar gestores de base de datos pesados**, ya que utiliza el motor estándar de **SQLite en memoria** y **Python 3**.
+Si te preguntan por este proyecto, aquí tienes las respuestas directas:
 
-### Requisitos Previos:
-- Python 3.8 o superior (incluye SQLite por defecto).
+* **"¿De qué trata este proyecto?"**  
+  *"Audité el flujo de compra de una tienda online. Diseñé un Plan de Pruebas formal, elaboré 20 casos de prueba tanto positivos como negativos, reporté 3 defectos en formato Jira y construí consultas SQL para verificar que la base de datos no tuviera descuadres de dinero, compras huérfanas ni inventario negativo."*
 
-### Pasos de Ejecución:
+* **"¿Cuál fue el error más grave que encontraste?"**  
+  *"El BUG-003: una condición de carrera donde el sistema permitía procesar la compra de un producto que ya tenía stock cero, dejando el inventario en -1. En el README dejé documentada la consulta SQL que atrapa esa anomalía."*
 
-1. **Clonar el repositorio:**
-   ```bash
-   git clone https://github.com/tu-usuario/qa-manual-testing-portfolio.git
-   cd qa-manual-testing-portfolio
-   ```
-
-2. **Ejecutar el Runner de Auditoría SQL:**
-   ```bash
-   python sql/run_validations.py
-   ```
-   *Salida esperada:* Se desplegará el reporte detallado con las 7 validaciones aprobadas y los registros anómalos detectados.
-
-3. **Ejecutar la Suite de Pruebas Automatizadas (unittest):**
-   ```bash
-   python -m unittest tests/test_database_integrity.py
-   ```
-   *Salida esperada:*
-   ```text
-   .......
-   ----------------------------------------------------------------------
-   Ran 7 tests in 0.002s
-
-   OK
-   ```
-
----
-
-## 🎙️ 7. Guía para la Entrevista Técnica: Cómo Explicar este Proyecto
-
-Si un reclutador o QA Lead te pregunta por este proyecto en tu portafolio, utiliza esta estructura de respuesta:
-
-### Pregunta 1: *"¿De qué trata este proyecto?"*
-> *"Es un proyecto de aseguramiento de calidad integral basado en una tienda e-commerce. Quise demostrar que el rol de QA va más allá de dar clics en la pantalla: diseñé un Plan de Pruebas formal bajo el estándar IEEE 829, elaboré una matriz de 20 casos de prueba con técnicas de caja negra, reporté 3 defectos con formato profesional de Jira y construí una suite de consultas SQL para auditar la integridad de la base de datos (descuadres financieros, datos huérfanos y sobreventa de stock)."*
-
-### Pregunta 2: *"¿Qué técnica usaste para diseñar los casos de prueba?"*
-> *"Apliqué partición de equivalencia y análisis de valores límite para los formularios, cubriendo tanto caminos felices (happy paths) como escenarios negativos: credenciales inválidas, usuarios bloqueados, inyección de espacios en blanco y concurrencia. De los 20 casos, detecté 3 defectos reales que documenté con su severidad y prioridad."*
-
-### Pregunta 3: *"¿Por qué incluiste SQL y GitHub Actions en un proyecto manual?"*
-> *"Porque en un equipo ágil real, el QA debe saber consultar la base de datos para verificar que las transacciones guarden los datos correctos y no dependa únicamente de lo que muestra la interfaz. Las consultas SQL validan que no haya discrepancias financieras ni registros huérfanos. Además, configuré un flujo de CI/CD con GitHub Actions para que cada vez que se actualice el repositorio, las pruebas de base de datos se ejecuten automáticamente y garanticen la reproducibilidad."*
+* **"¿Por qué incluiste SQL y GitHub Actions?"**  
+  *"Porque la interfaz gráfica puede mostrar que todo salió bien, pero en el backend puede haber descuadres de dinero. Con SQL audito la integridad de los datos, y con GitHub Actions me aseguro de que las pruebas corran solas en cada push con integración continua."*
 
 ---
 
 ## 👤 Autor
 - **Nombre:** Erick Carbajal
-- **Rol:** QA Analyst / QA Junior
-- **LinkedIn:** [Tu Perfil](https://linkedin.com)
+- **Rol:** QA Analyst / Practicante QA
 - **GitHub:** [@davidsc159](https://github.com/davidsc159)
+- **Licencia:** MIT
