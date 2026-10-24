@@ -6,7 +6,7 @@
 ### Control de Versiones del Documento
 | Versión | Fecha | Autor | Rol | Descripción del Cambio |
 | :---: | :---: | :---: | :---: | :--- |
-| **1.0.0** | 24/10/2026 | QA Junior / Trainee | QA Analyst | Versión inicial del Plan de Pruebas Funcionales y de Integridad de Datos |
+| **1.0.0** | 26/09/2026 | Erick Carbajal | QA Analyst | Versión inicial del Plan de Pruebas Funcionales y de Integridad de Datos |
 
 ---
 
