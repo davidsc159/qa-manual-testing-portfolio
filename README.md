@@ -10,17 +10,17 @@
 
 ---
 
-## 📌 1. ¿De qué trata este proyecto? (Resumen en 30 segundos)
+## 📌 1. Descripción del Proyecto
 
 Este repositorio es una muestra práctica del trabajo de un **QA Analyst / Practicante QA** en un entorno profesional.
 
 En lugar de hacer clics al azar, se realizó una **auditoría completa de calidad** sobre el flujo de compra de una tienda online de prueba ([SauceDemo Web Store](https://www.saucedemo.com/)), cubriendo desde el inicio de sesión del cliente hasta la verificación de los cobros y el stock en la **base de datos (SQL)**.
 
-> **Objetivo clave:** Demostrar que un buen QA no solo valida que los botones funcionen en la pantalla, sino que protege al negocio de perder dinero, generar cobros erróneos o vender productos agotados.
+> **Objetivo:** Demostrar que un buen QA no solo valida que los botones funcionen en la pantalla, sino que protege al negocio de perder dinero, generar cobros erróneos o vender productos agotados.
 
 ---
 
-## 💡 2. ¿Cómo se hizo el proyecto? (Metodología paso a paso)
+## 💡 2. Metodología y Flujo de Trabajo
 
 El proyecto simula el ciclo de vida real de pruebas dentro de un equipo de desarrollo ágil:
 
@@ -115,7 +115,7 @@ qa-manual-testing-portfolio/
 
 ---
 
-## 🚀 7. Cómo Probar el Proyecto en tu Computadora (En 1 minuto)
+## 🚀 7. Ejecución Local de las Pruebas
 
 No necesitas instalar motores de bases de datos pesados; el proyecto corre con **Python** y **SQLite en memoria** que ya vienen incluidos en cualquier sistema.
 
