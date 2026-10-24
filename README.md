@@ -16,16 +16,28 @@ Este repositorio constituye un **proyecto integral de Aseguramiento de Calidad (
 
 El sistema bajo prueba corresponde al flujo crítico de compra de una plataforma de comercio electrónico (**SauceDemo Web Store**), abarcando desde la autenticación del cliente hasta la confirmación de la orden y la consistencia en el backend relacional.
 
-### 🎯 Habilidades y Competencias Validadas:
-- **Diseño de Pruebas de Software:** Elaboración de Plan de Pruebas formal basado en el estándar IEEE 829.
-- **Técnicas de Caja Negra:** Partición de equivalencia, análisis de valores límite y pruebas exploratorias negativas.
-- **Gestión Profesional de Defectos:** Redacción de Bug Reports con severidad, prioridad, pasos reproducibles y análisis de causa raíz en formato Jira.
-- **SQL Testing para QA:** Consultas de auditoría para detectar duplicidad, violaciones de integridad referencial (`LEFT JOIN`), descuadres financieros y reglas de negocio.
-- **Integración Continua (CI/CD):** Pipeline automatizado en GitHub Actions para verificar la integridad de la base de datos en cada commit.
+---
+
+## 💡 2. ¿Cómo se hizo este proyecto? (Metodología paso a paso explicada fácil)
+
+Si quieres entender cómo se construyó este proyecto de inicio a fin, aquí está la secuencia real de trabajo que sigue un QA:
+
+```mermaid
+flowchart LR
+    A["1. PLANIFICAR<br>(Qué probar y qué no)"] --> B["2. DISEÑAR<br>(20 casos: caminos felices y errores)"]
+    B --> C["3. EJECUTAR<br>(Probar en SauceDemo)"]
+    C --> D["4. REPORTAR<br>(3 Bugs en Jira)"]
+    D --> E["5. AUDITAR CON SQL<br>(Verificar números en BD)"]
+```
+
+1. **Planificar antes de probar (El Plan de Pruebas):** En lugar de hacer clics a ciegas, primero se delimitó el alcance: qué partes de la tienda se revisarían (Login, Carrito, Checkout) y qué quedaría fuera (pasarelas de pago reales).
+2. **Pensar como un usuario real (La Matriz de Casos de Prueba):** Se redactaron 20 escenarios detallados. No solo el "camino feliz" (cuando todo sale bien), sino escenarios donde el usuario se equivoca: escribir espacios accidentales en formularios, intentar comprar con carrito vacío o recargar la pantalla con F5.
+3. **Reportar fallas con impacto de negocio (Bug Reports en Jira):** Al encontrar 3 defectos reales, se documentaron bajo el estándar de la industria indicando severidad, prioridad, pasos exactos para reproducirlos y evidencias de red.
+4. **No conformarse con la pantalla (Auditoría con SQL):** En una tienda real, la pantalla puede mostrar un check verde de compra, pero la base de datos puede estar guardando un cobro con sobreprecio o vendiendo productos con stock agotado. Se crearon 7 consultas SQL para auditar que la base de datos sea 100% íntegra.
 
 ---
 
-## 📊 2. Métricas Generales de Calidad
+## 📊 3. Métricas Generales de Calidad
 
 | Métrica | Valor | Detalle |
 | :--- | :---: | :--- |
