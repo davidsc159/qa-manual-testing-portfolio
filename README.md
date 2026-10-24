@@ -148,18 +148,12 @@ python -m unittest tests/test_database_integrity.py
 
 ---
 
-## 🎙️ 8. Guía Rápida para la Entrevista Técnica
+## 🎯 8. Conclusiones y Buenas Prácticas Demostradas
 
-Si te preguntan por este proyecto, aquí tienes las respuestas directas:
-
-* **"¿De qué trata este proyecto?"**  
-  *"Audité el flujo de compra de una tienda online. Diseñé un Plan de Pruebas formal, elaboré 20 casos de prueba tanto positivos como negativos, reporté 3 defectos en formato Jira y construí consultas SQL para verificar que la base de datos no tuviera descuadres de dinero, compras huérfanas ni inventario negativo."*
-
-* **"¿Cuál fue el error más grave que encontraste?"**  
-  *"El BUG-003: una condición de carrera donde el sistema permitía procesar la compra de un producto que ya tenía stock cero, dejando el inventario en -1. En el README dejé documentada la consulta SQL que atrapa esa anomalía."*
-
-* **"¿Por qué incluiste SQL y GitHub Actions?"**  
-  *"Porque la interfaz gráfica puede mostrar que todo salió bien, pero en el backend puede haber descuadres de dinero. Con SQL audito la integridad de los datos, y con GitHub Actions me aseguro de que las pruebas corran solas en cada push con integración continua."*
+- **Enfoque Preventivo y de Negocio:** La labor de QA no se limitó a verificar elementos visuales, sino a proteger las reglas de negocio de la plataforma (integridad de stock, prevención de órdenes vacías y validación de cobros).
+- **Trazabilidad de Defectos:** Cada reporte de error cuenta con su respectivo identificador, nivel de severidad y pasos detallados para que el equipo de desarrollo pueda reproducirlo y corregirlo con facilidad.
+- **Auditoría de Datos Reproducible:** Las consultas SQL aseguran que el backend mantenga la consistencia relacional y contable en todo momento.
+- **Próximos Pasos (Roadmap):** Automatización de la suite de casos de prueba con Python, Selenium WebDriver y Pytest aplicando el patrón Page Object Model (POM).
 
 ---
 
